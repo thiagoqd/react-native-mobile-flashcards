@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform, TextInput, KeyboardAvoidingView} from 'react-native'
 import { lightGray, white, primaryDark, secondaryLight, secondaryDark } from '../utils/colors'
-import { addCard } from '../actions'
+import { addCard, receiveDeckById } from '../actions'
 import { fetchAddCard } from '../utils/api'
 import { connect } from 'react-redux'
-
+import { NavigationActions } from 'react-navigation';
+import { fetchDecksById } from '../utils/api'
 
  
 class AddCard extends React.Component {
@@ -38,6 +39,13 @@ class AddCard extends React.Component {
   submitAddCard = () => {
 
     const {inputQuestion, inputAnswer} = this.state
+
+    if(inputQuestion == undefined || inputQuestion.trim().length == 0 ||
+    inputAnswer == undefined || inputAnswer.trim().length == 0 ) {
+      return;
+    }
+
+
     const deckId = this.props.navigation.state.params.deckId
     const title = this.props.navigation.state.params.title
     card = {
@@ -45,13 +53,19 @@ class AddCard extends React.Component {
           answer: inputAnswer
         }
 
+
+
     fetchAddCard({card}, deckId) 
      .then(()=> (this.props.addCard(card, deckId)))
-     .then(()=> this.props.navigation.navigate(
-      'DeckCover',
-      {deckId: deckId,
-      title: title}
-      )) 
+     .then(()=> {
+      fetchDecksById(deckId)
+      .then((deck)=> this.props.getDeck(deck, deckId))
+     })
+     .then(()=> this.props.navigation.goBack()) 
+
+
+      
+      
     
   }
 
@@ -151,6 +165,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps (state, props) { 
   return {
+    // deck: state[props.navigation.state.params.deckId]
       
   }
   
@@ -159,6 +174,7 @@ function mapStateToProps (state, props) {
 const mapDispatchToProps = (dispatch) => {
   return { 
     addCard: (card, deckId) => dispatch(addCard(card, deckId)),
+    getDeck: (deck, deckId) => dispatch(receiveDeckById(deck, deckId)),
   }
 }
 
