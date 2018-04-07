@@ -60,7 +60,7 @@ class AddCard extends React.Component {
      .then(()=> {
       fetchDecksById(deckId)
       .then((deck)=> this.props.getDeck(deck, deckId))
-     })
+     })  
      .then(()=> this.props.navigation.goBack()) 
 
 
@@ -181,3 +181,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps, mapDispatchToProps
 )(AddCard)
+ 
