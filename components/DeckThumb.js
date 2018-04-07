@@ -3,18 +3,15 @@ import { View, Text, StyleSheet, Platform } from 'react-native'
 import { white, primaryDark, secondaryLight } from '../utils/colors'
 
 
-class DeckThumb extends Component {
-
-
-  render() {
+const DeckThumb = ({deck}) => {
 
     return (
         <View key={this.props.id}>
-            <Text style={styles.title}>{this.props.deck.title}</Text>
-            <Text style={styles.bodyText}>{this.props.deck.questions.length} Cards</Text>
+            <Text style={styles.title}>{deck.title}</Text>
+            <Text style={styles.bodyText}>{deck.questions.length} Cards</Text>
         </View>
     );
-  }
+  
 }
 const styles = StyleSheet.create({
     deckContainer: {
