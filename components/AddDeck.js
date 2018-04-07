@@ -22,7 +22,13 @@ class AddDeck extends React.Component {
 
   submitAddDeck = () => {
 
-    const {input} = this.state
+    const {input} = this.state 
+  
+    if(input == undefined || input.trim().length == 0 ) {
+      return;
+    }
+
+
     deck = {
           title: input,
           questions: []
@@ -35,7 +41,7 @@ class AddDeck extends React.Component {
       {deckId: input,
       title: input}
       ))
-    // .then(this.setState(()=>({deckAdded: true})))
+      .then(this.setState(()=>({input: null})))
     
   }
 
