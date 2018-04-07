@@ -27,7 +27,6 @@ export function addDeck (deck, deckId) {
 }
 
 export function addCard (card, deckId) {
-  console.log("Action: ", card, deckId)
   return {
     type: ADD_CARD,
     card,
