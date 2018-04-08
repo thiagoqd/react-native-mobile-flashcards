@@ -56,11 +56,7 @@ class AddCard extends React.Component {
 
 
     fetchAddCard({card}, deckId) 
-     .then(()=> (this.props.addCard(card, deckId)))
-     .then(()=> {
-      fetchDecksById(deckId)
-      .then((deck)=> this.props.getDeck(deck, deckId))
-     })  
+     .then(()=> (this.props.addCard(card, deckId))) 
      .then(()=> this.props.navigation.goBack()) 
 
 
