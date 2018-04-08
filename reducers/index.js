@@ -24,7 +24,7 @@ function decks (state = {}, action) {
             ...state[action.deckId],
             questions:[
               ...state[action.deckId].questions,
-              ...action.card
+              action.card
             ]
           }
         }
