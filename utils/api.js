@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native'
 import { DECKS_STORAGE_KEY, formatDeckResults } from './_decks'
 
 export function fetchDecksResult () {
-
+    // AsyncStorage.clear()
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
                  .then(formatDeckResults)
 }
@@ -38,7 +38,7 @@ export function fetchAddCard ({deck}, key) {
 
 
 
-export function removeDeck (key) {
+export function fetchRemoveDeck (key) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
       const data = JSON.parse(results)
