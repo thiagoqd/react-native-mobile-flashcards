@@ -7,6 +7,7 @@ import { receiveDeckById, removeDeck } from '../actions'
 import { AppLoading } from 'expo'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import Modal from 'react-native-modal'
+import { NavigationActions } from 'react-navigation'
 
 class DeckCover extends Component {
     state = {
@@ -31,9 +32,18 @@ class DeckCover extends Component {
       fetchRemoveDeck(this.props.deck.title)
       .then(this.setState({ isModalVisible: !this.state.isModalVisible }))
       .then(this.props.removeDeck(this.props.deck.title)) 
-      .then(this.props.navigation.navigate(
-        'Home'
-        ))    
+      .then( () =>
+        this.props
+               .navigation
+               .dispatch(NavigationActions.reset(
+                 {
+                    index: 0,
+                    actions: [
+                      NavigationActions.navigate({ routeName: 'Home'})
+                    ]
+                  }))
+      )
+  
     }
 
      componentDidMount () {  
