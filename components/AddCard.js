@@ -40,10 +40,10 @@ class AddCard extends React.Component {
 
     const {inputQuestion, inputAnswer} = this.state
 
-    if(inputQuestion == undefined || inputQuestion.trim().length == 0 ||
-    inputAnswer == undefined || inputAnswer.trim().length == 0 ) {
+    if(!inputQuestion || inputQuestion.trim().length === 0 ||
+    !inputAnswer || inputAnswer.trim().length === 0 ) {
       return;
-    }
+    } 
 
 
     const deckId = this.props.navigation.state.params.deckId
